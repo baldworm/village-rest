@@ -17,10 +17,11 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'user' => [
+        /*'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
         ],
+        */
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -42,11 +43,11 @@ $config = [
         ],
         'db' => require(__DIR__ . '/db.php'),
         'urlManager' => [
-            'enablePrettyUrl' => true,
-            'enableStrictParsing' => true,
-            'showScriptName' => false,
+            //'enablePrettyUrl' => true,
+            //'enableStrictParsing' => true,
+            //'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'users'],
+                //['class' => 'yii\rest\UrlRule', 'controller' => 'users'],
             ],
         ],
     ],
