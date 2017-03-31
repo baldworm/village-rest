@@ -30,13 +30,11 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
-            //'enableSession' => false,
-            //'loginUrl' => null
+
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'enableStrictParsing' => true,
+            'enableStrictParsing' => false,
             'showScriptName' => false,
             'rules' => [
                 [
@@ -44,6 +42,7 @@ $config = [
                     'controller' => ['v1/user'],
                     'extraPatterns' => [
                         'POST create' => 'create',
+                        'GET get' => 'get'
                     ]
                 ],
             ],

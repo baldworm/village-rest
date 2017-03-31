@@ -2,9 +2,9 @@
 
 namespace app\controllers;
 
-use yii\rest\ActiveController;
+use app\api\modules\v1\controllers\AuthController;
 
-class UsersController extends ActiveController
+class UsersController extends AuthController
 {
     public $modelClass = 'app\models\village\UsersOld';
 }
