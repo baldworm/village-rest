@@ -3,6 +3,8 @@
 $db     = require(__DIR__ . '/../../config/db.php');
 $params = require(__DIR__ . '/params.php');
 
+
+
 $config = [
     'id' => 'basic',
     'name' => 'TimeTracker',
@@ -11,6 +13,7 @@ $config = [
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
+            'enableCookieValidation' => false,
             // Enable JSON Input:
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
@@ -41,13 +44,31 @@ $config = [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => ['v1/user'],
                     'extraPatterns' => [
-                        'POST create' => 'create',
-                        'GET get' => 'get'
-                    ]
+                        'POST new' => 'new',
+                        'GET get' => 'get',
+                    ],
+                    'pluralize' => false,
                 ],
             ],
         ],
         'db' => $db,
+        'response' => [
+            'class' => 'yii\web\Response',
+
+            'on beforeSend' => function ($event) {
+                $response = $event->sender;
+                $response->data = [
+                    'success' => $response->isSuccessful,
+                    'data' => $response->data,
+                ];
+                $response->statusCode = 200;
+
+            },
+
+            'format' => yii\web\Response::FORMAT_JSON,
+            'charset' => 'UTF-8',
+        ],
+
     ],
     'modules' => [
         'v1' => [
