@@ -2,13 +2,17 @@
 
 namespace app\api\modules\v1\controllers;
 
-use app\models\village\User;
+use app\api\modules\v1\models\village\User;
+
+use Exception;
 use Yii;
+use yii\web\BadRequestHttpException;
 
 
 class UserController extends AuthController
 {
-    public $modelClass = 'app\models\village\User';
+    public $modelClass = 'app\api\modules\v1\models\village\User';
+
     public function beforeAction($action)
     {
         error_log("before action");
@@ -51,7 +55,7 @@ class UserController extends AuthController
         if ($user){
             return $user;
         } else {
-            return "{'error' : 'notExist'}";
+            throw new Exception("not_exist",1);
         }
     }
 

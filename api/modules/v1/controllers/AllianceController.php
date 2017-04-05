@@ -6,6 +6,6 @@ use yii\rest\ActiveController;
 
 class AllianceController extends ActiveController
 {
-    public $modelClass = 'app\models\village\Alliance';
+    public $modelClass = 'app\api\modules\v1\models\village\Alliance';
 
 }

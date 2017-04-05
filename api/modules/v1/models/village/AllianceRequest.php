@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\village;
+namespace app\api\modules\v1\models\village;
 
 use Yii;
 

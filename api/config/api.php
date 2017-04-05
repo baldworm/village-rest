@@ -54,7 +54,7 @@ $config = [
         'db' => $db,
         'response' => [
             'class' => 'yii\web\Response',
-
+            /*
             'on beforeSend' => function ($event) {
                 $response = $event->sender;
                 $response->data = [
@@ -65,7 +65,7 @@ $config = [
 
             },
 
-            'format' => yii\web\Response::FORMAT_JSON,
+            'format' => yii\web\Response::FORMAT_JSON, */
             'charset' => 'UTF-8',
         ],
 
@@ -77,5 +77,10 @@ $config = [
     ],
     'params' => $params,
 ];
-
+if (YII_ENV_DEV) {
+    $config['bootstrap'][] = 'gii';
+    $config['modules']['gii'] = [
+        'class' => 'yii\gii\Module',
+    ];
+}
 return $config;

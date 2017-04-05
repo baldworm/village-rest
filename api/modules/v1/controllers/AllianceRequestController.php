@@ -6,5 +6,5 @@ use yii\rest\ActiveController;
 
 class AllianceRequestController extends ActiveController
 {
-    public $modelClass = 'app\models\village\AllianceRequest';
+    public $modelClass = 'app\api\modules\v1\models\village\AllianceRequest';
 }

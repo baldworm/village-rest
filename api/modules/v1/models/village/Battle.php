@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\village;
+namespace app\api\modules\v1\models\village;
 
 use Yii;
 
@@ -33,7 +33,8 @@ use Yii;
  *
  * @property User $attacker
  * @property User $defender
- */
+ *
+ *  */
 class Battle extends \yii\db\ActiveRecord
 {
     /**
@@ -97,7 +98,7 @@ class Battle extends \yii\db\ActiveRecord
      */
     public function getAttacker()
     {
-        return $this->hasOne(User::className(), ['id' => 'attacker_id']);
+        return $this->hasOne(User::className(), ['ID' => 'ATTACKER_ID']);
     }
 
     /**
@@ -105,6 +106,6 @@ class Battle extends \yii\db\ActiveRecord
      */
     public function getDefender()
     {
-        return $this->hasOne(User::className(), ['id' => 'defender_id']);
+        return $this->hasOne(User::className(), ['ID' => 'DEFENDER_ID']);
     }
 }

@@ -1,11 +1,14 @@
 # Requests list #
 
-#### GET /api/v1/user/start ####
+#### GET /api/v1/game/start ####
 * input:
     * vk_id 
     * hash
 * output:
     * Serialized Village
+    * Serialized Battles  
+    OR 
+    * No Village Exception
     
 
 ------------------------------------------
@@ -23,4 +26,6 @@
 * output:
     * Serialized Village
     
-    
+--------------------------------   
+# Error Codes #
+1 - not_exist - пользователя не существует

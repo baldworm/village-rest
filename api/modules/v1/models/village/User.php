@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\village;
+namespace app\api\modules\v1\models\village;
 
 use Yii;
 use yii\db\ActiveRecord;
@@ -17,27 +17,28 @@ use yii\db\ActiveRecord;
  * @property integer $SMITHY
  * @property integer $TOWER
  * @property integer $CACHE
- * @property string $GOLD
- * @property string $MILLET
- * @property string $DIAMOND
- * @property string $KN_NUM
+ * @property integer $GOLD
+ * @property integer $MILLET
+ * @property integer $DIAMOND
+ * @property integer $KN_NUM
  * @property integer $KN_ATK
  * @property integer $KN_HP
  * @property integer $KN_ACC
- * @property string $BW_NUM
+ * @property integer $BW_NUM
  * @property integer $BW_ATK
  * @property integer $BW_HP
  * @property integer $BW_ACC
- * @property string $SP_NUM
+ * @property integer $SP_NUM
  * @property integer $SP_ATK
  * @property integer $SP_HP
  * @property integer $SP_ACC
- * @property string $LAST_UPDATE
+ * @property integer $LAST_UPDATE
  *
  * @property Alliance[] $alliances
  * @property AllianceRequest[] $alliancesRequests
- * @property Battle[] $battles
- * @property Battle[] $battles0
+ *
+ * @property Battle[] $battlesWhereDefender
+ * @property Battle[] $battlesWhereAttacker
  * @property Alliance $alliance
  */
 class User extends ActiveRecord
@@ -117,17 +118,17 @@ class User extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBattles()
+    public function getBattlesWhereAttacker()
     {
-        return $this->hasMany(Battle::className(), ['attacker_id' => 'id']);
+        return $this->hasMany(Battle::className(), ['ATTACKER_ID' => 'ID']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBattles0()
+    public function getBattlesWhereDefender()
     {
-        return $this->hasMany(Battle::className(), ['defender_id' => 'id']);
+        return $this->hasMany(Battle::className(), ['DEFENDER_ID' => 'ID']);
     }
 
     /**
