@@ -14,13 +14,30 @@ use yii\base\Model;
 
 class GameModel extends Model
 {
-    public function startSession($vk_id){
-
+    public static function startSession($vk_id){
+        $user = new User();
+        return $user;
     }
-    public function getUserByVkId ($vk_id){
+    public static function getUserByVkId ($vk_id){
         return User::findOne(['vk_id' => $vk_id]);
     }
-    public function updateUser($id){
+
+    /**
+     * @param integer $vk_id
+     * @param String $village_name
+     * @return string
+     */
+    public static function createUser ($vk_id, $village_name){
+        $user = User::newUser($vk_id,$village_name);
+        $user->save();
+        return $user->ID;
+    }
+
+    /**
+     * @param $id
+     * return User
+     */
+    public static function updateUser($id){
         $user = User::findOne($id);
         $period = time() - $user->LAST_UPDATE;
         $palace = $user->PALACE;
@@ -30,7 +47,7 @@ class GameModel extends Model
         $sp_num = $user->SP_NUM;
         $kn_num = $user->KN_NUM;
 
-        $allBattles = $this->getUserAllActiveBattles($user);
+        $allBattles = self::getUserAllActiveBattles($user);
 
     }
 
@@ -43,21 +60,26 @@ class GameModel extends Model
         $battles = $this->getUserAllActiveBattles(4);
 
         var_dump(count($battles));
-
-
     }
-    private function getUserAllActiveBattles ($id){
-        $query = "SELECT * FROM battles WHERE (ATTACKER_ID = $id OR DEFENDER_ID = $id) AND TYPE = 'DURING'";
-        $battles = Battle::findBySql($query)->all();
 
-        $this->closeActiveBattlesIfTimeout($battles);
+    public static function getUpdatedUserActiveBattles ($id){
+
+        $battles = self::getUserBattles($id, 'DURING');
+
+        self::closeActiveBattlesIfTimeout($battles);
         return $battles;
+    }
+
+
+    public static function getUserBattles ($id, $type){
+        $query = "SELECT * FROM battles WHERE (ATTACKER_ID = $id OR DEFENDER_ID = $id) AND TYPE = '$type'";
+        return Battle::findBySql($query)->all();
     }
 
     /**
      * @param Battle[] $battles
      */
-    private function closeActiveBattlesIfTimeout($battles){
+    public static function closeActiveBattlesIfTimeout($battles){
         foreach ($battles as $battle){
             $time_from = strtotime($battle->TIME_FROM);
             $time_duration = $battle->TIME_DURATION_MINUTES * 60;

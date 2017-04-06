@@ -44,6 +44,22 @@ use yii\db\ActiveRecord;
 class User extends ActiveRecord
 {
     /**
+     * User constructor.
+     * @param string $VK_ID
+     * @param string $VILLAGE_NAME
+     */
+    public static function newUser($VK_ID, $VILLAGE_NAME)
+    {
+        $instance = new self();
+
+        $instance->VK_ID = $VK_ID;
+        $instance->VILLAGE_NAME = $VILLAGE_NAME;
+
+        return $instance;
+    }
+
+
+    /**
      * @inheritdoc
      */
     public static function tableName()

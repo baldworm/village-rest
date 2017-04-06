@@ -3,6 +3,7 @@
 namespace app\api\modules\v1\controllers;
 
 use app\api\modules\v1\models\village\GameModel;
+use app\api\modules\v1\models\village\User;
 use Exception;
 use Yii;
 
@@ -26,12 +27,18 @@ class GameController extends AuthController
     }
 
     public function actionStart($vk_id)   {
-        $user = (new GameModel())->getUserByVkId($vk_id);
+        //$user = (new GameModel())->getUserByVkId($vk_id);
+        $user = GameModel::startSession($vk_id);
         if (!$user){
             throw new Exception("not_exist");
         }
         return $user;
     }
+
+    public function actionCreate($vk_id, $village_name){
+
+    }
+
     public function actionGet ($vk_id)
     {
         $user = User::find()
@@ -47,5 +54,4 @@ class GameController extends AuthController
     public function actionTest (){
         $test = (new GameModel())->test();
     }
-
 }
